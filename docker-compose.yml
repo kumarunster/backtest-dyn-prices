@@ -3,9 +3,25 @@ version: '3.7'
 services:
     app:
         build: ./
-        command: streamlit run app/main.py --server.port 8501
+        image: backtest_dyn_el_prices:latest
+
+        command: streamlit run main.py --server.port 8501
+        environment:
+            - VIRTUAL_HOST=backtest_dyn_el_prices.amelanq.com
+            - VIRTUAL_PORT=8501
+            - LETSENCRYPT_HOST=backtest_dyn_el_prices.amelanq.com
+            - LETSENCRYPT_EMAIL=XXXXXXXXXXXXXXXXXXXXXXX
+            - _DUMMY_VALUE=false
         volumes:
             - ./:/usr/src/app
-        ports:
-            - 8501:8501
-        image: yourstreamlitapp:latest
+        #ports:
+        #    - 8505:8501
+        restart: always
+        networks:
+            - proxy
+            - intranet-streamlit
+
+networks:
+  proxy:
+    external: true
+  intranet-streamlit:

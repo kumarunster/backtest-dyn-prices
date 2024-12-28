@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.11
 
 WORKDIR /usr/src/app
 
@@ -15,3 +15,5 @@ RUN pip install --upgrade pip setuptools wheel \
     && rm -rf /root/.cache/pip
 
 COPY ./ /usr/src/app
+
+WORKDIR /usr/src/app/app
