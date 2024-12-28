@@ -187,7 +187,7 @@ def get_known_prices(start, end):
     return _prices_df.query(_q)
 
 
-@st.cache_resources
+@st.cache_resource
 def run_simulation(battery_capacity,
                     yearly_consumption,
                     target_kwp,
