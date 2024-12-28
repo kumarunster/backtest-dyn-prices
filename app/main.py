@@ -27,7 +27,7 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 
 # load base dataframes
 
-@st.cache_data
+@st.cache_resource
 def get_data():
     _prices_df = pd.read_pickle('prices.pkl')
     _solar_production_df = pd.read_pickle('solar_production.pkl')
@@ -176,18 +176,18 @@ with middle_column:
 pd.options.mode.chained_assignment = None
 
 
-@st.cache_data
+@st.cache_resource
 def get_solar_forecast(start, end):
     _q = f'start >= "{start}" & start < "{end}"'
     return _solar_production_df.query(_q).solar_production.sum()
 
-@st.cache_data
+@st.cache_resource
 def get_known_prices(start, end):
     _q = f'start >= "{start}" & start < "{end}"'
     return _prices_df.query(_q)
 
 
-@st.cache_data
+@st.cache_resources
 def run_simulation(battery_capacity,
                     yearly_consumption,
                     target_kwp,
